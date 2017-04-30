@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Console Tricks!</title>
+  <title>console Tricks!</title>
 </head>
 <body>
 
@@ -18,29 +18,50 @@
     }
 
     // Regular
-
+    console.log("jippie!")
     // Interpolated
-
+    console.log("There are some %i people here", 100);
     // Styled
-
+    console.log('%c Lets have some fun !','background-color: cyan; border: 2px solid black; box-shadow: 10px;')
     // warning!
-
+    console.warn('Dont do it!!');
     // Error :|
-
+    console.error('That .. was an error.');
     // Info
+    console.info('Here is an info: wait, what?');
 
+    const p = document.querySelector("p");
     // Testing
+    console.assert(p.classList.contains('hi'),'Nope!');
 
     // clearing
+    console.clear();
 
     // Viewing DOM Elements
-
+    console.log(p);
+    console.dir(p);
     // Grouping together
+    dogs.map(dog => {
+      console.groupCollapsed(dog.name);
+      console.log(dog.name);
+      console.log(dog.age);
+      console.groupEnd(dog.name);
+    })
 
     // counting
 
-    // timing
 
+    console.count("Snickers");
+    console.count("Snickers");
+    console.count("Snickers");
+    console.count("Snickers");
+    console.count("Snickers");
+
+    // timing
+    console.time("start");
+    fetch("https://github.com/roelkers")
+    .then(response => response.json ())
+    .then(console.timeEnd("start"));
   </script>
 </body>
 </html>
