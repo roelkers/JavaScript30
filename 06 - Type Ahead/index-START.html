@@ -16,7 +16,38 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+let data;
 
+fetch(endpoint)
+.then( response => response.json())
+.then(json=>data=json)
+
+const ul = document.querySelector("ul");
+const inputElement = document.querySelector(".search-form");
+//filter elements
+let hlStart, regex;
+inputElement.addEventListener("input", event =>{
+  const filteredData = data.filter(entry => {
+    regex = new RegExp(event.target.value,'gi');
+    return entry.city.match(regex) || entry.state.match(regex);
+  }).sort((entryA, entryB) => entryB.population - entryA.population);
+
+  //remove child li's
+  while(ul.hasChildNodes()){
+    ul.removeChild(ul.lastChild);
+  }
+  //add new li's
+  let li, stateName, cityName;
+  for(entry of filteredData){
+    regex = new RegExp(event.target.value,'gi');
+    stateName = entry.city.replace(regex,`<span class="hl">${event.target.value}</span>`)
+    cityName = entry.state.replace(regex,`<span class="hl">${event.target.value}</span>`)
+    li = document.createElement('li');
+    ul.appendChild(li);
+    li.innerHTML = (`<a>${cityName}, ${stateName}</a><span class="population">${entry.population}</span>`);
+  }
+
+});
 </script>
   </body>
 </html>
