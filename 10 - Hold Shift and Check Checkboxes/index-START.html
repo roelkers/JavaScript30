@@ -99,6 +99,43 @@
   </div>
 
 <script>
+    const inputs = document.getElementsByTagName('input');
+    let shiftPressed = null;
+    let indexLastChecked = null;
+
+    function whichIndexChecked(inputs,target){
+      for(let i= 0; i<inputs.length; i++){
+        if(inputs[i] === target)
+          return i;
+      }
+      return null;
+    }
+    function swap(i,j){
+      const temp = i;
+      i = j;
+      j = temp;
+      return [i,j];
+    }
+    function checkAllItemsBetween(i,j){
+      if(i>j){
+        [i,j] = swap(i,j)
+      }
+      for(let k = i; k<j; k++){
+        inputs[k].checked = true;
+      }
+    }
+
+    document.addEventListener("keydown", event=>{
+      if(event.keyCode ==16)
+        shiftPressed = true;
+    });
+    document.addEventListener("change",event => {
+      indexNowChecked = whichIndexChecked(inputs,event.target);
+      if(shiftPressed === true){
+        checkAllItemsBetween(indexNowChecked,indexLastChecked);
+      }
+      indexLastChecked = indexNowChecked;
+  });
 </script>
 </body>
 </html>
