@@ -7,6 +7,17 @@
 </head>
 <body>
 <script>
+const pressedKeys = [];
+window.addEventListener("keyup",(e) => {
+  pressedKeys.push(e.key);
+  const secretCode ="ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a";
+  let keysString = pressedKeys.splice(-secretCode.length - 1, pressedKeys.length - secretCode.length);
+  keysString = pressedKeys.join();
+  const regex = new RegExp(/secretCode/i);
+  console.log(pressedKeys);
+  if(keysString.match(regex))
+    console.log("regex matched");
+})
 </script>
 </body>
 </html>
