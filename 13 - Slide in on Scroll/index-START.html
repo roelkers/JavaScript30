@@ -57,6 +57,17 @@
         if (callNow) func.apply(context, args);
       };
     }
+    const fullScroll = 4529;
+    let pctScroll;
+    const images = document.querySelectorAll('img');
+    window.addEventListener("scroll", (e)=> {
+      pctScroll = e.currentTarget.document.body.scrollTop/fullScroll*100;
+      images.forEach(image => {
+        if(image.offsetTop/fullScroll*100 < pctScroll+10)
+          if(!image.classList.contains('active'))
+            image.classList.add('active');
+      })
+    })
 
   </script>
 
