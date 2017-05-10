@@ -182,6 +182,18 @@
     </li>
   </ul>
 <script>
+  const listItems = document.querySelectorAll('[data-time]');
+  let minutes=0, seconds=0;
+  listItems.forEach(item => {
+    minutes += parseInt(item.dataset.time.match(/^\d+/));
+    seconds += parseInt(item.dataset.time.match(/\d+$/));
+  });
+
+  const secondsTotal = seconds%60;
+  const minutesTotal = (Math.floor(seconds/60) + minutes)%60;
+  const hoursTotal = Math.floor(minutes/60);
+
+  console.log(`hours: ${hoursTotal}, minutes: ${minutesTotal}, seconds: ${secondsTotal}`);
 </script>
 </body>
 </html>
