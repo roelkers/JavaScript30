@@ -36,6 +36,50 @@
   const holes = document.querySelectorAll('.hole');
   const scoreBoard = document.querySelector('.score');
   const moles = document.querySelectorAll('.mole');
+  let lastHole;
+  let gameDuration = 0;
+  let score = 0;
+function randTime(min, max){
+  return Math.round(Math.random() *(max -min) + min);
+}
+
+function randomHole(holes){
+  const index = Math.floor(Math.random()*5);
+  const hole = holes[index];
+  if(hole === lastHole){
+    return randomHole(holes)
+  }
+  lastHole = hole;
+  return hole;
+}
+
+function gameTurn(){
+  const upTime = randTime(200,2000);
+  const hole = randomHole(holes);
+  hole.classList.add('up');
+
+  hole.addEventListener('click',(e)=>{
+    hole.classList.remove('up');
+    score++
+    scoreBoard.textContent = score;
+  },{once : true});
+
+  gameDuration += upTime;
+
+  setTimeout(function (){
+    if(hole.classList.contains('up'));
+      hole.classList.remove('up');
+    if(gameDuration < 10000)
+      gameTurn();
+  },upTime);
+}
+
+function startGame(){
+  score = 0;
+  gameDuration = 0;
+  scoreBoard.textContent = score;
+  gameTurn();
+}
 
 </script>
 </body>
